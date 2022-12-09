@@ -1,0 +1,27 @@
+---
+  apiVersion: agent-install.openshift.io/v1beta1
+  kind: NMStateConfig
+  metadata:
+   name: mynmstate-0
+   namespace: spoke-0
+   labels:
+     mynmstate: asdf
+  spec:
+    config:
+      interfaces:
+      - name: eth0
+        type: ethernet
+        state: up
+        ipv4:
+          enabled: true
+          dhcp: true
+          auto-dns: false
+          auto-gateway: true
+          auto-routes: true
+      dns-resolver:
+        config:
+          server:
+          - 192.168.123.1
+    interfaces:
+    - name: eth0
+      macAddress: "52:54:00:b7:74:2f"

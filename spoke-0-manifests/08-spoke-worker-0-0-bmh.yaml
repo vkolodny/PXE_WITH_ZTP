@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+data:
+    password: cGFzc3dvcmQ=
+    username: YWRtaW4=
+kind: Secret
+metadata:
+    name: spoke-worker-0-0-bmc-secret
+    namespace: spoke-0
+type: Opaque
+---
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+    name: spoke-worker-0-0-bmh
+    namespace: spoke-0
+    annotations:
+      inspect.metal3.io: enabled
+      bmac.agent-install.openshift.io/hostname: "spoke-worker-0-0"
+      bmac.agent-install.openshift.io/role: "worker"
+    labels:
+      infraenvs.agent-install.openshift.io: "spoke-0"
+spec:
+    bmc:
+      address: redfish+https://192.168.124.1:8000/redfish/v1/Systems/5c35858e-3e80-4702-8240-4392744b60eb
+      credentialsName: spoke-worker-0-0-bmc-secret
+      disableCertificateVerification: true
+    bootMACAddress: 52:54:00:b0:69:7a
+    automatedCleaningMode: disabled
+    online: true
